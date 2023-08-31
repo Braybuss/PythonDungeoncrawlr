@@ -152,7 +152,7 @@ class Playerchar:
                             if result == True:
                                 print("Returning, you may choose a new action")
                             else:
-                                turnct -= result
+                                turnct -= int(result)
                                 donezoe = True
                                 casted = True
             if casted == False:
@@ -193,37 +193,48 @@ class Playerchar:
                 #print("4:      Actions:1 Mana:3")
                 #print("5:minor damage bootst  Actions:2 Mana:3")
                 #print("6:fireball             Actions:2 Mana:4")
-                spell = input("Give int of spell you want to do, to b to go back. {0} has {1} mana remaining".format(self.name, self.recoverz))
-                match spell:
-                    case "1":
-                        if self.recoverz > 0:
-                            self.attrnge += 1
-                            if self.attack(-3):
-                                self.attrnge -= 1
-                                return True
-                            else:
-                                self.attrnge -= 1
-                                self.recoverz -= 1
-                                return 1
-                            
-                    case "2":
-                        if self.recoverz > 0:
-                            if self.iceKnife():
-                                print("No targets")
-                                return True
-                            else:
-                                self.recoverz -= 1
-                                return 1
-                    case "3":
-                        if self.recoverz > 1:
-                            self.minorHeal()
-                            self.recover -= 2
-                    case "4":
-                        pass
-                    case "5":
-                        pass
-                    case "b":
-                        return True
+                bozo = True
+                while bozo == True:
+                    spell = input("Give int of spell you want to do, to b to go back. {0} has {1} mana remaining".format(self.name, self.recoverz))
+                    match spell:
+                        case "1":
+                            bozo = False
+                            if self.recoverz > 0:
+                                self.attrnge += 1
+                                if self.attack(-3):
+                                    self.attrnge -= 1
+                                    return True
+                                else:
+                                    self.attrnge -= 1
+                                    self.recoverz -= 1
+                                    return "1"
+                                
+                        case "2":
+                            bozo = False
+                            if self.recoverz > 0:
+                                if self.iceKnife() == True:
+                                    print("No targets")
+                                else:
+                                    bozo = False
+                                    self.recoverz -= 1
+                                    return "1"
+                        case "3":
+                            bozo = False
+                            if self.recoverz > 1:
+                                self.minorHeal()
+                                self.recover -= 2
+                                return "1"
+                        case "4":
+                            bozo = False
+                            print("Not an option right now, sorry")
+                            return True
+                        case "5":
+                            bozo = False
+                            print("Not an option right now, sorry")
+                            return True
+                        case "b":
+                            print("Going back!")
+                            return True
             case 2: #cleric
                 print("1:radiant bolt         Actions:1 Mana:1")
                 print("2:speed boost          Actions:1 Mana:1")#make temporary?
@@ -242,30 +253,37 @@ class Playerchar:
                             else:
                                 self.recoverz -= 1
                                 self.attrnge -= 2
-                                return 1
+                                return "1"
                         else:
                             print("You do not have enough mana. you can get more by not casting a spell on a characters turn")
                     case "2":
                         if self.recoverz > 0:
                             self.speedBoost()
                             self.recoverz -= 1
+                            return "1"
                         else:
                             print("Not enough mana")                            
                             
                     case "3":
                         if self.recoverz > 1:
-                            self.bane()
-                            self.recoverz -= 1
+                            self.Bane()
+                            self.recoverz -= 2
+                            return "1"
                         else:
                             print("Not enough mana")
                     case "4":
                         if self.recoverz > 1:
                             self.minorHeal()
                             self.recoverz -= 2
+                            return "1"
                         else:
                             print("Not enough mana")
                     case "5":
-                        pass
+                        print("Not an option yet")
+                        return True
+                    case "6":
+                        print("Not an option yet")
+                        return True
                     case "b":
                         return True
             case 3: #Wizard
@@ -280,21 +298,20 @@ class Playerchar:
                     case "1":
                         if self.recoverz > 0:
                             self.attrnge += 1
-                            if self.attack(-3):
+                            if self.attack(-2):
                                 pass
                             else:
                                 self.attrnge -= 1
-                                return 1
+                                return "1"
                             self.attrnge -= 1
                     case "2":
                         if self.recoverz > 0:
                             self.attrnge += 1
-                            if self.iceKnife():
+                            if self.iceKnife() == True:
                                 self.attrnge -= 1
-                                return True
                             else:
                                 self.attrnge -= 1
-                                return 1
+                                return "1"
                         else:
                             print("you do not have enough mana")
                             return True
@@ -307,7 +324,7 @@ class Playerchar:
                                 self.attrnge += 22
                                 self.rayOFire()
                                 self.attrnge -= 22
-                                return 2
+                                return "2"
                             else:
                                 print("not enough actions")
                                 return True
@@ -330,8 +347,8 @@ class Playerchar:
         target = int(input("what will you hit with Ice knife?"))
         target = options[target-1]
         print("{0} has been selected".format(target.name))
-        #detect death
         target.hp -= 6
+        print("6 damage to {0}, and has reduced their speed".format(target.name))
         target.spd -= 1
         cheqDeath()
         
@@ -361,9 +378,12 @@ class Playerchar:
                  print("invalid input")
              else:
                  bozo = False
-        target.speed += 1
-        print("{0} has had a speed increase to {1}".format(target.name,target.speed))
+        target = options[target-1]
+        target.spd += 1
+        print("{0} has had a speed increase to {1}".format(target.name,target.spd))
         self.attrnge -= 22
+
+
     def Bane(self):
         bozo = True
         options = self.detect(enemies)
@@ -374,10 +394,10 @@ class Playerchar:
                 print("invalid input")
             else:
                 bozo = False
-        target.dmg -= 2
-        print("you reduced {0} damage to {1}".format(target.name,target.dmg))
-
         target = options[target-1]
+        target.damage -= 2
+        print("you reduced {0} damage to {1}".format(target.name,target.damage))
+
     def entangle(self):
         pass
     def rayOFire(self):
@@ -624,11 +644,12 @@ class goblin:
                 if char1.pos[0] - self.pos[0] > 0:
                     self.pos[0] += 1
                     movement -= 1
-                    for enemy in enemies:
-                        if abs(enemy.pos[0] - self.pos[0]) + abs(enemy.pos[1] - self.pos[1]) == 0:
+                    for char in chars:
+                        if abs(char.pos[0] - self.pos[0]) + abs(char.pos[1] - self.pos[1]) == 0:
                             if enemy.name == self.name:
                                 pass
                             else:
+                                print("spawned at wrong point!")
                                 self.pos[0] -= 1
                                 movement = 0
                                 battmap()
