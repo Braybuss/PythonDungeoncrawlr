@@ -3,11 +3,11 @@ from random import *
 def mapping():
     pass
     #project for later to use unicode to make dungeon
-def line():
-    i = 0
-    while i < 30:
+def line(n):
+    i = n
+    while i > 0:
         print("\n")
-        i += 1
+        i -= 1
 
 def cheqDeath():
     for char in chars:
@@ -21,39 +21,39 @@ def newchar(y,poopsocks):
     bozo = True
     #dmg, dmgvar, range, speed, hp, spellz, recoverz, name, pos
     while bozo == True:
-        match input("What class will your {0} character be?(input number)".format(poopsocks)):
+        match input("What class will your {0} character be?(input number)\n>>>".format(poopsocks)):
             case "1":
                 bozzo = True
                 while bozzo == True:
-                    match input("Would you like a sword fighter(1), crossbow fighter(2) or a bowman(3)? the more rangs(bowman has most) the less damage and hp. bowman and crossbow fighter have medium movement"):
+                    match input("Would you like a sword fighter(1), crossbow fighter(2) or a bowman(3)? the more rangs(bowman has most) the less damage and hp. bowman and crossbow fighter have medium movement\n>>>"):
                         case "1":#sword
                             bozzo = False
                             bozo = False
-                            return Playerchar(11,2,1,3,18,0,6,input("What will you name your sword fighter?(suggested 5 characters)"),[0,y])
+                            return Playerchar(11,2,1,3,18,0,6,input("What will you name your sword fighter?(suggested 5 characters)\n>>>"),[0,y])
 
                         case "2":#crosbow
                             bozzo = False
                             bozo = False
-                            return Playerchar(10,2,2,2,15,0,5,input("What will you name your crossbow fighter?(suggested 5 characters)"),[0,y])
+                            return Playerchar(10,2,2,2,15,0,5,input("What will you name your crossbow fighter?(suggested 5 characters)\n>>>"),[0,y])
 
                         case "3":#archer
                             bozzo = False
                             bozo = False
-                            return Playerchar(9,1,3,2,12,0,4,input("What will you name your bowman?(suggested 5 characters)"),[0,y])
+                            return Playerchar(9,1,3,2,12,0,4,input("What will you name your bowman?(suggested 5 characters)\n>>>"),[0,y])
 
                         
             case "2":#barb
                 bozo = False
-                return Playerchar(8,2,1,2,25,0,8,input("What will you name your barbarian?(suggested 5 characters)"),[0,y])
+                return Playerchar(8,2,1,2,25,0,8,input("What will you name your barbarian?(suggested 5 characters)\n>>>"),[0,y])
             case "3":#wiz
                 bozo = False
-                return Playerchar(10,1,5,1,12,3,4,input("What will you name your wizard?(suggested 5 characters)"),[0,y]) 
+                return Playerchar(10,1,5,1,12,3,4,input("What will you name your wizard?(suggested 5 characters)\n>>>"),[0,y]) 
             case "4":#cleric
                 bozo = False
-                return Playerchar(6,1,3,1,16,2,6,input("What will you name your cleric?(suggested 5 characters)"),[0,y])
+                return Playerchar(6,1,3,1,16,2,6,input("What will you name your cleric?(suggested 5 characters)\n>>>"),[0,y])
             case "5":#sorc
                 bozo = False
-                return Playerchar(8,1,4,1,15,1,4,input("What will you name your sorcerer?(suggested 5 characters)"),[0,y])
+                return Playerchar(8,1,4,1,15,1,4,input("What will you name your sorcerer?(suggested 5 characters)\n>>>"),[0,y])
             case _:
                 print("Invalid, try again")
 
@@ -65,16 +65,16 @@ def battmap():
     #DONT KNOW NORMAL TILES(|░░░|?)  ▓ for blokced areas? 
     #                        ░░░ ░░░
     #the following might be usefull,   ▨，▧，▦，▩， ◎， ◍， 
-    y0 =  ['___','___','___','___','___','___','___',"___",'___','___']
-    y1 =  ['___','___','___','___','___','___','___',"___",'___','___']
-    y2 =  ['___','___','___','___','___','___','___',"___",'___','___']
-    y3 =  ['___','___','___','___','___','___','___',"___",'___','___']
-    y4 =  ['___','___','___','___','___','___','___',"___",'___','___']
-    y5 =  ['___','___','___','___','___','___','___',"___",'___','___']
-    y6 =  ['___','___','___','___','___','___','___',"___",'___','___']
-    y7 =  ['___','___','___','___','___','___','___',"___",'___','___']
-    y8 =  ['___','___','___','___','___','___','___',"___",'___','___']
-    y9 =  ['___','___','___','___','___','___','___',"___",'___','___']
+    y0 =  ['_____','_____','_____','_____','_____','_____','_____','_____','_____','_____']
+    y1 =  ['_____','_____','_____','_____','_____','_____','_____','_____','_____','_____']
+    y2 =  ['_____','_____','_____','_____','_____','_____','_____','_____','_____','_____']
+    y3 =  ['_____','_____','_____','_____','_____','_____','_____','_____','_____','_____']
+    y4 =  ['_____','_____','_____','_____','_____','_____','_____','_____','_____','_____']
+    y5 =  ['_____','_____','_____','_____','_____','_____','_____','_____','_____','_____']
+    y6 =  ['_____','_____','_____','_____','_____','_____','_____','_____','_____','_____']
+    y7 =  ['_____','_____','_____','_____','_____','_____','_____','_____','_____','_____']
+    y8 =  ['_____','_____','_____','_____','_____','_____','_____','_____','_____','_____']
+    y9 =  ['_____','_____','_____','_____','_____','_____','_____','_____','_____','_____']
     ylvz = [y0,y1,y2,y3,y4,y5,y6,y7,y8,y9]
     for char in chars:
         ylvz[char.pos[1]][char.pos[0]] = char.name
@@ -135,7 +135,7 @@ class Playerchar:
                 print("{0} actions left".format(turnct))
                 donezoe = False
                 while donezoe == False:
-                    match input("What would you like to do? Move(m){0} has a speed of {1}, attack(a){2} has a range of {3}(no diagonals) or cast(c)(can return if you do not want to cast)".format(self.name,self.spd,self.name,self.attrnge)):
+                    match input("What would {0} like to do? Move(m){1} has a speed of {2}, attack(a){3} has a range of {4}(no diagonals) or cast(c)(can return if you do not want to cast)\n>>>".format(self.name,self.name,self.spd,self.name,self.attrnge)):
                         case "m":
                             self.move()
                             donezoe = True
@@ -165,7 +165,7 @@ class Playerchar:
                 print("{0} actions left".format(turnct))
                 donezoe = False
                 while donezoe == False:
-                    match input("What would you like to do? Move(m){0} has a speed of {1}, attack(a){2} has a range of {3}(no diagonals) or recover(r)(will recover {4} hp)".format(self.name,self.spd,self.name,self.attrnge,self.recoverz-rnum*2)):
+                    match input("What would you like to do? Move(m){0} has a speed of {1}, attack(a){2} has a range of {3}(no diagonals) or recover(r)(will recover {4} hp)\n>>>".format(self.name,self.spd,self.name,self.attrnge,self.recoverz-rnum*2)):
                         case "m":
                             self.move()
                             donezoe = True
@@ -195,7 +195,7 @@ class Playerchar:
                 #print("6:fireball             Actions:2 Mana:4")
                 bozo = True
                 while bozo == True:
-                    spell = input("Give int of spell you want to do, to b to go back. {0} has {1} mana remaining".format(self.name, self.recoverz))
+                    spell = input("Give int of spell you want to do, to b to go back. {0} has {1} mana remaining\n>>>".format(self.name, self.recoverz))
                     match spell:
                         case "1":
                             bozo = False
@@ -222,7 +222,7 @@ class Playerchar:
                             bozo = False
                             if self.recoverz > 1:
                                 self.minorHeal()
-                                self.recover -= 2
+                                self.recoverz -= 2
                                 return "1"
                         case "4":
                             bozo = False
@@ -242,7 +242,7 @@ class Playerchar:
                 print("4:minor heal           Actions:1 Mana:2")
                 #print("5:minor damage boost   Actions:2 Mana:3")
                 #print("6:mass heal            Actions:2 Mana:4")
-                spell = input("Give int of spell you want to do, to b to go back. {0} has {1} mana remaining".format(self.name, self.recoverz))
+                spell = input("Give int of spell you want to do, to b to go back. {0} has {1} mana remaining\n>>>".format(self.name, self.recoverz))
                 match spell:
                     case "1":
                         if self.recoverz > 1:
@@ -266,8 +266,12 @@ class Playerchar:
                             
                     case "3":
                         if self.recoverz > 1:
-                            self.Bane()
+                            self.attrnge += 3
+                            if self.Bane() is False:
+                                print("No targets to bane")
+                                return True
                             self.recoverz -= 2
+                            self.attrnge -= 3
                             return "1"
                         else:
                             print("Not enough mana")
@@ -293,7 +297,7 @@ class Playerchar:
                 print("4:ray of fire          Actions:2 Mana:3")
                 #print("5:fireball             Actions:2 Mana:4")
                 #print("6:Lightning strike     Actions:3 Mana 6:")
-                spell = input("Give int of spell you want to do, to b to go back. {0} has {1} mana remaining".format(self.name, self.recoverz))
+                spell = input("Give int of spell you want to do, to b to go back. {0} has {1} mana remaining\n>>>".format(self.name, self.recoverz))
                 match spell:
                     case "1":
                         if self.recoverz > 0:
@@ -344,7 +348,7 @@ class Playerchar:
         options = self.detect(enemies)
         if len(options) < 1:
             return True
-        target = int(input("what will you hit with Ice knife?"))
+        target = int(input("what will you hit with Ice knife?\n>>>"))
         target = options[target-1]
         print("{0} has been selected".format(target.name))
         target.hp -= 6
@@ -360,7 +364,7 @@ class Playerchar:
             return True
         print("3: {0}".format(self.name))
         options.append(self)
-        target = int(input("Who would you like to heal?"))
+        target = int(input("Who would you like to heal?\n>>>"))
         target = options[target-1]
         target.hp += 6
         if target.hp > target.Maxhp:
@@ -373,7 +377,7 @@ class Playerchar:
         bozo = True
         while bozo == True:
              try:
-                 target = int(input("Who would you like to target for the speed boost?"))
+                 target = int(input("Who would you like to target for the speed boost?\n>>>"))
              except:
                  print("invalid input")
              else:
@@ -387,16 +391,19 @@ class Playerchar:
     def Bane(self):
         bozo = True
         options = self.detect(enemies)
+        if len(options) < 1:
+            print("No targets!")
+            return False
         while bozo == True:
             try:
-                target = int(input("Who would you like to target for bane?"))
+                target = int(input("Who would you like to target for bane?\n>>>"))
             except:
                 print("invalid input")
             else:
                 bozo = False
         target = options[target-1]
         target.damage -= 2
-        print("you reduced {0} damage to {1}".format(target.name,target.damage))
+        print("you reduced {0}'s damage to {1}".format(target.name,target.damage))
 
     def entangle(self):
         pass
@@ -405,7 +412,7 @@ class Playerchar:
         bozo = True
         while bozo == True:
             try:
-                target = int(input("Who would you like to target?(you will then choose horizontal or vertical)"))
+                target = int(input("Who would you like to target?(you will then choose horizontal or vertical)\n>>>"))
             except:
                 print("invalid input")
             else:
@@ -413,7 +420,7 @@ class Playerchar:
 
         target = options[target-1]
         while bozo == False:
-            match input("Horizontal(h) or verticle(v)"):
+            match input("Horizontal(h) or verticle(v)\n>>>"):
                 case "h":
                     for char in chars:
                         if char.pos[1] == target.pos[1]:
@@ -472,7 +479,7 @@ class Playerchar:
         movespd = self.spd
         while movespd > 0:
             print("{0} movement remaining".format(movespd))
-            match input("Up(u), Down(d), Left(l), Right(r) or pass(p)"):
+            match input("Up(u), Down(d), Left(l), Right(r) or pass(p)\n>>>"):
                 case "u":
                     self.pos[1] -= 1
                     movespd -= 1
@@ -582,7 +589,7 @@ class Playerchar:
         target = count + 2
         while int(target) > count:
             try:
-                target = int(input("What would you like to attack?(Give number)"))
+                target = int(input("What would you like to attack?(Give number)\n>>>"))
             except:
                 print("Not a valid input")
             if target > count:
@@ -617,9 +624,9 @@ class goblin:
         self.ID = ID
         self.pos = pos
         self.attrnge = attrnge
-        self.name = "gobfigh "
+        self.name = "gobf "
         if self.attrnge > 1:
-            self.name = "gobarch "
+            self.name = "goba "
         self.name += str(ID)
         self.spd = 3
     def move(self):
@@ -728,7 +735,7 @@ class goblin:
 print("welcome to the dungeon! you get three characters that you will lead to proseper or demise!")
 print("")
 print("there are 5 classes for you to choose form right now \n1:fighter \n2:barbarian \n3:wizard \n4:cleric \n5:sorcerer")
-if input("would you like a description of all the roles?(y/n)") == "y":
+if input("would you like a description of all the roles?(y/n)\n>>>") == "y":
     print("The fighter specialises in doing damage, and has moderate Hp                      Hp:Med  Dmg:Hi    Mp:Non Support:L/N Rang:var  movment:fast")
     print("The barbarian foucuses on taking hits, while doing a decent amount of damage      Hp:Hi   Dmg:Med   Mp:L/N Support:M/L Range:1   movment:med")
     print("The wizard foucuses on damaging spells, with a few support spells                 Hp:Low  Dmg:Hi    Mp:Hi  Support:L/N Range:5 movment:slow")
@@ -754,22 +761,27 @@ chars = [char1,char2,char3,goblin1,goblin2]
 enemies = [goblin1,goblin2]
 gameover = False
 roundCt = 0
+line(4)
 while gameover == False:
     battmap()
     if char1.hp > 0:
         char1.turn()
+        line(4)
     else:
         print("{0} is dead :(".format(char1.name))
     if char2.hp > 0:
         battmap()
         char2.turn()
+        line(4)
     else:
         print("{0} is dead :(".format(char2.name))
     if char3.hp > 0:
         battmap()
         char3.turn()
+        line(4)
     else:
         print("{0} is dead :(".format(char3.name))
+    line(4)
 
     if len(enemies) == 0:
         if roundCt == 0:
@@ -796,8 +808,9 @@ while gameover == False:
         gameover = True
     for enemy in enemies:
         enemy.turn()
+        line(4)
     input("move on?(enter)")
-    line()
+    line(32)
 
             
         
