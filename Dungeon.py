@@ -165,7 +165,7 @@ class Playerchar:
                 print("{0} actions left".format(turnct))
                 donezoe = False
                 while donezoe == False:
-                    match input("What would you like to do? Move(m){0} has a speed of {1}, attack(a){2} has a range of {3}(no diagonals) or recover(r)(will recover {4} hp)\n>>>".format(self.name,self.spd,self.name,self.attrnge,self.recoverz-rnum*2)):
+                    match input("What would {0} like to do? Move(m){1} has a speed of {2}, attack(a){3} has a range of {4}(no diagonals) or cast(c)(can return if you do not want to cast)\n>>>".format(self.name,self.name,self.spd,self.name,self.attrnge)):
                         case "m":
                             self.move()
                             donezoe = True
@@ -665,15 +665,16 @@ class goblin:
                     movement -= 1
                     battmap()
                             
-            if ydif > xdif:
+            if xdif < ydif and xdif+ydif != 1:
                 if char1.pos[1] - self.pos[1] > 0:
                     self.pos[1] += 1
                     movement -= 1
-                    for enemy in enemies:
-                        if abs(enemy.pos[0] - self.pos[0]) + abs(enemy.pos[1] - self.pos[1]) == 0:
+                    for char in chars:
+                        if abs(char.pos[0] - self.pos[0]) + abs(char.pos[1] - self.pos[1]) == 0:
                             if enemy.name == self.name:
                                 pass
                             else:
+                                print("spawned at wrong point!")
                                 self.pos[1] -= 1
                                 movement = 0
                                 battmap()
