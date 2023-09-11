@@ -123,6 +123,76 @@ class Playerchar:
         #name of character on map
         self.name = name
         self.pos = pos
+        self.status = [0,0,0,0,0,0,0,0,0]
+#status table = [bane,banect,bless,blessct,poision,slowed,entangled,confuzed(lower chance to hit, moved randomly),pacified(no attacking,
+#maybe retreats?)]
+#will be all zeros unless status is on target, and the number will be no or furns or severety(some may only have a severity of one)
+#[0,0,0,0,0,0,0,0,0]
+        
+        match self.spellz:
+            case 0:
+                pass
+            case 1:#sorc
+
+                self.knownspells = [0,0,0,0,0,0]
+                print("1:Fire bolt            Actions:1 Mana:1")
+                print("2:ice knife            Actions:1 Mana:1")
+                print("3:minor heal           Actions:1 Mana:2")
+                print("4:Twin bolts           Actions:1 Mana:3")
+                print("5:minor damage boost   Actions:2 Mana:3")
+                print("6:fireball             Actions:2 Mana:4")
+                bozo = True
+                i = 0
+                while bozo == False:
+                    for spell in self.knownspells:
+                        bozo = False
+                        while bozo == False:
+                            Stinky = False
+                            try:
+                                self.knownspells[i] = int(input("select spell {0} for your list".format(i+1)))
+                            except:
+                                print("Invalid")
+                            else:
+                                if self.knownspells[i] > 6 or self.knownspells[i] < 1:
+                                    print("Out of range")
+                                else:
+                                    for spell in self.knownspells:
+                                        if spell == self.knownspells[i]:
+                                            if self.knownspells.index(spell) == i:
+                                                pass
+                                            else:
+                                                Stinky = True
+                                    if Stinky:
+                                        print("Already selected")
+                                        continue
+                                                
+                                    
+                                    print("")
+                                    i += 1
+                                    bozo = True
+                                    
+            case 2:#cleric
+                self.knownspells = [0,0,0,0,0,0]
+                print("1:radiant bolt         Actions:1 Mana:1")
+                print("2:speed boost          Actions:2 Mana:1")
+                print("3:bane                 Actions:1 Mana:2")
+                print("4:bless                Actions:1 Mana:2")
+                print("5:minor heal           Actions:1 Mana:2")
+                print("6:minor damage boost   Actions:2 Mana:3")
+                print("7:mass heal            Actions:2 Mana:4")
+            case 3:#wiz
+                self.knownspells = [0,0,0,0,0,0]
+                print("1:Fire bolt            Actions:1 Mana:1")
+                print("2:ice knife            Actions:1 Mana:1")
+                print("3:entangle             Actions:1 Mana:2")
+                print("4:ray of fire          Actions:2 Mana:3")
+                print("5:fireball             Actions:2 Mana:4")
+                print("6:Lightning strike     Actions:3 Mana:3")
+            
+#status table = [bane,banect,bless,blessct,poision,slowed,entangled,confuzed(lower chance to hit, moved randomly),pacified(no attacking,
+#maybe retreats?)]
+#will be all zeros unless status is on target, and the number will be no or furns or severety(some may only have a severity of one)
+#[0,0,0,0,0,0,0,0,0]
 
     def turn(self):
         donezoe = False
@@ -187,6 +257,20 @@ class Playerchar:
         print("{0} has {1} mana remaining".format(self.name,self.recoverz))
         match self.spellz:
             case 1: #sorcerer
+                #for spell in self.knownspells:
+                 #   match spell:
+                  #      case 1:
+                   #         print("1:Fire bolt            Actions:1 Mana:1")
+                    #    case 2:
+                     #       
+                      #  case 3:
+                       #     pass
+                        #case 4:
+                         #   pass
+                        #case 5:
+                         #   pass
+                        #case 6:
+                         #   pass
                 print("1:Fire bolt            Actions:1 Mana:1")
                 print("2:ice knife            Actions:1 Mana:1")
                 print("3:minor heal           Actions:1 Mana:2")
@@ -577,9 +661,11 @@ class Playerchar:
         count = 0
         options = []
         for enemy in enemies:
+            xdiff = abs(enemy.pos[0]-self.pos[0])
+            ydiff = abs(enemy.pos[1]-self.pos[1])
             if enemy.pos == False:
                 pass
-            if abs(enemy.pos[0]-self.pos[0]) + abs(enemy.pos[1]-self.pos[1]) <= self.attrnge:
+            if xdiff + ydiff <= self.attrnge or (xdiff == ydiff and xdiff <=self.attrnge):
                 options.append(enemy)
                 count += 1
                 print(str(count)+ ":" + enemy.name)
@@ -601,21 +687,29 @@ class Playerchar:
         direction = round(randint(-1,1))
         var = var*direction
         damage = self.damage + var - anum*2
-        options[count-1].hp -= damage
-        print("attacking {0}".format(options[count-1].name))
+        options[target-1].hp -= damage
+        print("attacking {0}".format(options[target-1].name))
         print("you did {0} damage!".format(damage))
-        battmap()
-
         for char in chars:
             if char.hp <= 0:
                 if char in enemies:
                     enemies.remove(char)
                 print("{0} has died".format(char.name))
                 chars.remove(char)
+        battmap()
 
-                
+class sniper:
+    def __init__(self,damage,hp):
+        pass
 
 
+
+    
+#
+class enchanter:
+    def __init__(self):
+        self.status = [0,0,0,0,0,0,0,0,0]
+        pass
         
 class goblin:
     def __init__(self,damage,hp,ID,pos,attrnge):
@@ -629,6 +723,7 @@ class goblin:
             self.name = "goba "
         self.name += str(ID)
         self.spd = 3
+        self.status = [0,0,0,0,0,0,0,0,0]
     def move(self):
         distance = []
         for char in pchars:
@@ -643,12 +738,12 @@ class goblin:
             self.pos[0] -= 1
             self.move()
             return True
-        while xdif+ydif != 1 and movement > 0:
+        while xdif+ydif > self.attrnge and movement > 0:
             print("{0} is moving".format(self.name))
             xdif = abs(pchars[goto].pos[0] - self.pos[0])
             ydif = abs(pchars[goto].pos[1] - self.pos[1]) 
-            if xdif > ydif and xdif+ydif != 1:
-                if char1.pos[0] - self.pos[0] > 0:
+            if xdif >= ydif and xdif+ydif > self.attrnge:
+                if pchars[goto].pos[0] - self.pos[0] > 0:
                     self.pos[0] += 1
                     movement -= 1
                     for char in chars:
@@ -657,16 +752,16 @@ class goblin:
                                 pass
                             else:
                                 print("spawned at wrong point!")
-                                self.pos[0] -= 1
-                                movement = 0
+                                self.pos[1] -= 1
+                                movement = 1
                                 battmap()
                 else:
                     self.pos[0] -= 1
                     movement -= 1
                     battmap()
                             
-            if xdif < ydif and xdif+ydif != 1:
-                if char1.pos[1] - self.pos[1] > 0:
+            if xdif < ydif and xdif+ydif > self.attrnge:
+                if pchars[goto].pos[1] - self.pos[1] > 0:
                     self.pos[1] += 1
                     movement -= 1
                     for char in chars:
@@ -676,7 +771,7 @@ class goblin:
                             else:
                                 print("spawned at wrong point!")
                                 self.pos[1] -= 1
-                                movement = 0
+                                movement = 1
                                 battmap()
                 else:
                     self.pos[1] -= 1
@@ -700,13 +795,15 @@ class goblin:
                 print(str(count)+ ":" + char.name)
         if count == 0:
             print("No targets for {0}!".format(self.name))
+            print("Moving instead!")
+            self.move()
             return True
         if count > 1:
             optrnge = []
             print("selecting target")
             for option in options:
                 optrnge.append(option.attrnge)
-                target = min(optrnge)
+                target = max(optrnge)
                 target = options[optrnge.index(target)]
                 
         else:
@@ -757,7 +854,7 @@ char3 = newchar(6,"third")
 pchars = [char1,char2,char3]
 #might make one arguement that sets the rest of the goblin to reduce some input
 goblin1 = goblin(3,15,1,[2,4],1)
-goblin2 = goblin(3,20,2,[4,4],3)
+goblin2 = goblin(3,20,2,[4,4],4)
 chars = [char1,char2,char3,goblin1,goblin2]
 enemies = [goblin1,goblin2]
 gameover = False
@@ -789,7 +886,7 @@ while gameover == False:
             goblin3 = goblin(3,30,3,[9,4],1)
             enemies.append(goblin3)
             chars.append(goblin3)
-            goblin4 = goblin(4,40,4,[9,5],3)
+            goblin4 = goblin(4,40,4,[9,5],5)
             enemies.append(goblin4)
             chars.append(goblin4)
             roundCt += 1
